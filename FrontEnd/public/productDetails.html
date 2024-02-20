@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Product Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css"/>
+  </head>
+  <body>
+    <header id="header" class="header border">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/"
+            ><span style="color: #d00000">SP</span> IT!</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarProduct"
+            aria-controls="navbarProduct"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarProduct">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarProductMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Product
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-light"
+                  aria-labelledby="navbarProductMenuLink"
+                >
+                  <li>
+                    <a class="dropdown-item" href="/product">All Product</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/addProduct"
+                      >Add Product</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCategory"
+            aria-controls="navbarCategory"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCategory">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarCategoryMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Category
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-light"
+                  aria-labelledby="navbarCategoryMenuLink"
+                >
+                  <li>
+                    <a class="dropdown-item" href="/preference"
+                      >Add Preference</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/addCategory"
+                      >Add Category</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      </div>
+    </header>
+    <div style="margin-top: 10px" class="container">
+      <h1>Product Details</h1>
+      <div style="margin: 20px 0px" class="card">
+        <div class="container-fliud">
+          <div class="wrapper row">
+            <div class="preview col-md-6"></div>
+            <div id="details" class="col-md-6"></div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div>
+        <h1>Member Reviews</h1>
+        <div class="wrapper row">
+          <div id="reviews"></div>
+        </div>
+      </div>
+      <br />
+      <div id="write-review">
+        <h1>Write a Review</h1>
+        <form id="create-review-form" style="margin-top: 10px">
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              id="create-review-form-body"
+              rows="3"
+              placeholder="Tell us about your experience with the product"
+            ></textarea>
+          </div>
+          <div>
+            <label class=>Rating: </label>
+            <label for="5">5</label>
+            <input class="rating" type="radio" name="rating" value="5" id="5" />
+            <label for="4">4</label>
+            <input class="rating" type="radio" name="rating" value="4" id="4" />
+            <label for="3">3</label>
+            <input class="rating" type="radio" name="rating" value="3" id="3" />
+            <label for="2">2</label>
+            <input class="rating" type="radio" name="rating" value="2" id="2" />
+            <label for="1">1</label>
+            <input class="rating" type="radio" name="rating" value="1" id="1" />
+          </div>
+          <button
+            style="margin: 10px 0px"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- <h1>Product</h1>
+    <div class="container-fluid">
+      <div id="product-details"></div>
+    </div> -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const baseUrl = "http://localhost:3000";
+
+      const token = localStorage.getItem("token");
+      const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+
+      if (token === null || isNaN(loggedInUserID)) {
+        $(".nav").append(`<a class="nav-link" href="/login">Login</a>`);
+      } else {
+        $(".nav").append(`<a class="nav-link" href="#">Logout</a>`);
+      }
+
+      const url = window.location.toString();
+      const pid = parseInt(url.split("/").slice(-1)[0]);
+
+      axios
+        .get(`${baseUrl}/productDetails/${pid}`)
+        .then((response) => {
+          const product = response.data;
+          console.log(product);
+          $("#details").append(`
+              <h3>${product.name}</h3>
+              <h4>PRODUCT FEATURES</h4>
+              <p class="fs-4">${product.description}
+              </p>
+              <h4>Current Price: ${product.price}</h4>
+              <h4>Brand: ${product.brand}</h4>
+              <h4>Category: ${product.category}</h4>
+              `);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      axios
+        .get(`${baseUrl}/product/${pid}/reviews`)
+        .then((response) => {
+          const reviews = response.data;
+          console.log(reviews);
+          reviews.forEach((review) => {
+            $("#reviews").append(`
+                <div class="card" style="margin: 10px 0px">
+                    <h4>Rating: ${review.rating}</h4>
+                    <h4>Reviewed At: ${review.created_at}</h4>
+                    <h4>Username: ${review.username}</h4>
+                    <p class="fs-4">${review.review}</p>
+                </div>
+            `);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      $("#create-review-form").submit((event) => {
+        event.preventDefault();
+
+        const reviewbody = $("#create-review-form-body").val();
+        const rating = $('input[name="rating"]:checked').val();
+        const requestBody = {
+          userid: loggedInUserID,
+          review: reviewbody,
+          rating: rating,
+        };
+        console.log(requestBody);
+
+        axios
+          .post(`${baseUrl}/product/${pid}/review`, requestBody, {
+              headers: {'authorization': 'Bearer ' + token}
+          })
+          .then((response) => {
+            let postmanResponse = response.data;
+            $("#create-review-form-body").val("");
+            $(".rating").prop("checked", false);
+            axios
+              .get(`${baseUrl}/reviews/${postmanResponse.reviewsid}`)
+              .then((response) => {
+                const postmanResponse2 = response.data;
+                const reviewHtml = `
+                    <div class="card" style="margin: 10px 0px">
+                        <h4>Rating: ${postmanResponse2.rating}</h4>
+                        <h4>Reviewed At: ${postmanResponse2.created_at}</h4>
+                        <h4>Username: ${postmanResponse2.username}</h4>
+                        <p>${postmanResponse2.review}</p>
+                    </div>
+                `;
+                $("#reviews").prepend(reviewHtml);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            $('#write-review').append(`
+             <h4 style="color: red">
+                Only registered members can post a review!
+             </h4>
+            `);
+          });
+      });
+    </script>
+  </body>
+</html>

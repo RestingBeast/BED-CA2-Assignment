@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link href="css/home.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header id="header" class="header fixed-top border bg-light">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/"
+              ><span style="color: #d00000">SP</span> IT!</a
+            >
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarProduct"
+              aria-controls="navbarProduct"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarProduct">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarProductMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Product
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="navbarProductMenuLink"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="/product">All Product</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/addProduct"
+                        >Add Product</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarCategory"
+              aria-controls="navbarCategory"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCategory">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarCategoryMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Category
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-light"
+                    aria-labelledby="navbarCategoryMenuLink"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="/preference"
+                        >Add Preference</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/addCategory"
+                        >Add Category</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <from action="">
+          <div class="input-group mb-3">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Brand
+            </button>
+            <ul class="dropdown-menu" id="brand"></ul>
+            <input
+              type="text"
+              class="form-control"
+              id="searchitem"
+              placeholder="Search Item"
+            />
+            <button type="button" class="btn btn-outline-secondary" id="Search">
+              Search
+            </button>
+          </div>
+        </from>
+      </div>
+    </header>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const baseUrl = "http://localhost:3000";
+      const token = localStorage.getItem("token");
+      const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+
+      if (token === null || isNaN(loggedInUserID)) {
+        $(".navbar").append(`<a class="nav-link " href="/login">Login</a>`);
+      } else {
+        $(".navbar").append(
+          `<a class="nav-link " id="log-out" href="/">Logout</a>`
+        );
+      }
+      $("#log-out").click((event) => {
+        localStorage.clear();
+      });
+      $("#Search").click((event) => {
+        const name = $("#searchitem").val();
+        console.log(name);
+        window.location.href = `/searchResult/${name}/0`;
+      });
+
+      axios.get(`${baseUrl}/brands`).then((response) => {
+        const brands = response.data;
+        brands.forEach((brand) => {
+          $("#brand").append(`
+            <li><a class="dropdown-item" href="/searchResult/0/${brand.brand}">${brand.brand}</a></li>
+          `);
+        });
+      }).catch;
+    </script>
+  </body>
+</html>

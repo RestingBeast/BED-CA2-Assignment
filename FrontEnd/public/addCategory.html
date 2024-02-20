@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Add Category</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="bg-light p-3 mt-4">
+        <a href="/" class="nav-link" style="padding: 0px">
+          <h1><span style="color: #d00000">SP</span> IT!</h1>
+        </a>
+        <div id="message-box" class="border border-primary">
+          <p>Message Box</p>
+        </div>
+        <br />
+        <form id="category-form" action="">
+          <div class="form-group">
+            <label class="form-label">Category Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cname"
+              placeholder="Category Name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              placeholder="Describe the category"
+              required
+            ></textarea>
+          </div>
+          <br />
+          <div class="clearfix">
+            <button type="submit" class="btn btn-primary float-start" id="Add">
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary float-end"
+              id="clear"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      function clearAll() {
+        $("#pname").val("");
+        $("#description").val("");
+        $("#category").val("0");
+        $("#brand").val("");
+        $("#price").val("");
+        $("#message-box").html(`<p>Message Box</p>`);
+      }
+      function clear() {
+        $("#pname").val("");
+        $("#description").val("");
+        $("#category").val("0");
+        $("#brand").val("");
+        $("#price").val("");
+      }
+      $("#clear").click(clearAll);
+
+      const baseUrl = `http://localhost:3000`;
+      const token = localStorage.getItem("token");
+      const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+      const role = localStorage.getItem("role");
+
+      if ((role != "Admin" && token === null) || isNaN(loggedInUserID)) {
+        window.location.href = "/";
+      }
+
+      $("#category-form").submit((event) => {
+        event.preventDefault();
+
+        const cname = $("#cname").val();
+        const description = $("#description").val();
+
+        let requestBody = {
+          category: cname,
+          description: description,
+        };
+        console.log(requestBody);
+        axios
+          .post(`${baseUrl}/category`, requestBody, {
+            headers: { authorization: "Bearer " + token },
+          })
+          .then((response) => {
+            let postmanResponse = response.data;
+            $("#message-box").append(`
+                <p>Category added! Inserted Id = ${postmanResponse.categoryid}</p>
+            `);
+            clear();
+          })
+          .catch((error) => {
+            console.log(error);
+            $("#message-box").append(
+              `<p style="color: red;">Failed to Add Category!</p>`
+            );
+          });
+      });
+    </script>
+  </body>
+</html>
